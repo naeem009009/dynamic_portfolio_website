@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muneer Majeed | ServiceNow Developer & Workflow Automation Specialist</title>
+    <meta name="description" content="ServiceNow Developer specializing in ITSM, workflow automation, and enterprise solutions. 1.5+ years of experience in ServiceNow platform development.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/css/style.css">
+</head>
+<body>
+    <!-- Mobile Navigation Bar (Visible only on small screens < 992px) -->
+    <header class="mobile-header">
+        <div class="mobile-logo">
+            <span class="logo-avatar">MM</span>
+            <span class="logo-title">Muneer Majeed</span>
+        </div>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Navigation (Fixed on Desktop, Drawer on Mobile) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+            <div class="brand-box">
+                <div class="avatar-glow">MM</div>
+                <div class="brand-text">
+                    <h2 class="brand-name">Muneer Majeed</h2>
+                    <p class="brand-role"><i class="fa-solid fa-bolt icon-accent"></i> ServiceNow Developer</p>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="#home" class="sidebar-link active" data-section="home"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                    <li><a href="#about" class="sidebar-link" data-section="about"><i class="fa-solid fa-user-gear"></i> <span>About</span></a></li>
+                    <li><a href="#skills" class="sidebar-link" data-section="skills"><i class="fa-solid fa-laptop-code"></i> <span>Skills</span></a></li>
+                    <li><a href="#experience" class="sidebar-link" data-section="experience"><i class="fa-solid fa-briefcase"></i> <span>Experience</span></a></li>
+                    <li><a href="#projects" class="sidebar-link" data-section="projects"><i class="fa-solid fa-diagram-project"></i> <span>Projects</span></a></li>
+                    <li><a href="#services" class="sidebar-link" data-section="services"><i class="fa-solid fa-server"></i> <span>Services</span></a></li>
+                    <li><a href="#contact" class="sidebar-link" data-section="contact"><i class="fa-solid fa-paper-plane"></i> <span>Contact</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="/admin" class="sidebar-admin-btn">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Admin Panel</span>
+                <i class="fa-solid fa-arrow-right-to-bracket arrow-icon"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Backdrop overlay for mobile drawer -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content Area (Offset next to sidebar on desktop) -->
+    <main class="main-wrapper">
+
+        <!-- Hero Section -->
+        <section id="home" class="hero section">
+            <div class="hero-bg-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="hero-container">
+                <div class="hero-text-content">
+                    <div class="badge-tag">
+                        <span class="pulse-dot"></span> Open for ITSM & Workflow Projects
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-line">ServiceNow Developer</span>
+                        <span class="title-line">& Workflow Automation</span>
+                        <span class="title-line highlight">Specialist</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Transforming enterprise operations through intelligent ITSM solutions and automated workflows. 1.5+ years of hands-on experience in ServiceNow platform development.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+                        <a href="#projects" class="btn btn-outline"><i class="fa-solid fa-eye"></i> View Projects</a>
+                    </div>
+                </div>
+
+                <div class="hero-stats-grid">
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon-wrapper"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="1.5" data-suffix="+">0</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon-wrapper"><i class="fa-solid fa-rocket"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="10" data-suffix="+">0</span>
+                            <span class="stat-label">Projects Delivered</span>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon-wrapper"><i class="fa-solid fa-face-smile"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="100" data-suffix="%">0</span>
+                            <span class="stat-label">Client Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="section-subtitle">Passionate about automation and enterprise innovation</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-main-card glass-card">
+                        <h3><i class="fa-solid fa-user-check"></i> Professional Summary</h3>
+                        <p>
+                            Motivated and detail-oriented ServiceNow Developer with 1.5 years of hands-on practical experience in IT Service Management (ITSM) and enterprise workflow automation. Proven ability to configure, customize, and extend the ServiceNow platform using client scripts, UI policies, business rules, and Flow Designer.
+                        </p>
+                        <p>
+                            I combine platform development skills with frontend fundamentals (HTML, CSS, JavaScript) to deliver well-rounded, user-focused solutions. My strong foundation in secure data architecture through custom tables, roles, and access permissions ensures robust and scalable implementations.
+                        </p>
+                        <div class="about-highlights">
+                            <div class="highlight-chip"><i class="fa-solid fa-bullseye"></i> ITSM Expertise</div>
+                            <div class="highlight-chip"><i class="fa-solid fa-gears"></i> Workflow Automation</div>
+                            <div class="highlight-chip"><i class="fa-solid fa-wrench"></i> ServiceNow Customization</div>
+                            <div class="highlight-chip"><i class="fa-solid fa-code"></i> Frontend Development</div>
+                        </div>
+                    </div>
+
+                    <div class="about-side-cards">
+                        <div class="glass-card info-card">
+                            <h3><i class="fa-solid fa-address-card"></i> Contact Information</h3>
+                            <ul class="info-list">
+                                <li><i class="fa-solid fa-location-dot icon-gold"></i> <span>Lahore, Pakistan</span></li>
+                                <li><i class="fa-solid fa-phone icon-gold"></i> <span>+92 345 5322037</span></li>
+                                <li><i class="fa-solid fa-envelope icon-gold"></i> <span>muneermajeed037@gmail.com</span></li>
+                            </ul>
+                        </div>
+                        <div class="glass-card info-card">
+                            <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+                            <div class="education-item">
+                                <span class="edu-degree">Bachelor of Computer Science</span>
+                                <span class="edu-meta"><i class="fa-solid fa-calendar"></i> 2024</span>
+                                <span class="edu-school">University of Baltistan</span>
+                            </div>
+                            <div class="education-item">
+                                <span class="edu-degree">ICS - Computer Science</span>
+                                <span class="edu-meta"><i class="fa-solid fa-calendar"></i> 2018 – 2020</span>
+                                <span class="edu-school">Public School & College</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <p class="section-subtitle">Expertise across ServiceNow platform & modern software engineering</p>
+                </div>
+                <div class="skills-grid" id="skills-container">
+                    <!-- Skills will be loaded dynamically from API -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="experience section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Professional Experience</h2>
+                    <p class="section-subtitle">Driving enterprise impact through ServiceNow development</p>
+                </div>
+                <div class="experience-timeline">
+                    <div class="timeline-item glass-card">
+                        <div class="timeline-badge"><i class="fa-solid fa-building"></i></div>
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="role-title">ServiceNow Developer</h3>
+                                <span class="company-name">Techrystal LLC</span>
+                            </div>
+                            <span class="timeline-date"><i class="fa-regular fa-calendar-check"></i> March 2025 – Present</span>
+                        </div>
+                        <div class="timeline-body">
+                            <h4><i class="fa-solid fa-list-check"></i> Key Responsibilities</h4>
+                            <ul class="resp-list">
+                                <li>Configure and customize ServiceNow applications and modules to align with evolving business and IT service requirements</li>
+                                <li>Develop, test, and optimize client scripts, UI policies, and business rules to enhance platform functionality</li>
+                                <li>Design and implement custom tables, roles, and access permissions for secure data access</li>
+                                <li>Build, configure, and test Service Catalog items for standardized offerings</li>
+                                <li>Design and automate multi-step approval workflows using Flow Designer</li>
+                                <li>Set up inbound email actions for automated record generation</li>
+                                <li>Support on-call scheduling configuration for accurate notification routing</li>
+                            </ul>
+                            <h4><i class="fa-solid fa-trophy"></i> Key Contributions</h4>
+                            <ul class="contrib-list">
+                                <li>Improved platform reliability by systematic testing before deployment, reducing post-release issues</li>
+                                <li>Contributed to structured data access model by mapping roles to business needs</li>
+                                <li>Collaborated with stakeholders to translate manual requests into automated workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Projects</h2>
+                    <p class="section-subtitle">Showcasing technical expertise through practical applications</p>
+                </div>
+                <div class="projects-grid" id="projects-container">
+                    <!-- Projects will be loaded dynamically from API -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Services</h2>
+                    <p class="section-subtitle">Professional ServiceNow & automation solutions</p>
+                </div>
+                <div class="services-grid" id="services-container">
+                    <!-- Services will be loaded dynamically from API -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Have a project in mind? Let's discuss how I can help</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info-cards">
+                        <div class="glass-card contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <h3>Location</h3>
+                            <p>Lahore, Pakistan</p>
+                        </div>
+                        <div class="glass-card contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <h3>Phone</h3>
+                            <p>+92 345 5322037</p>
+                        </div>
+                        <div class="glass-card contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <h3>Email</h3>
+                            <p>muneermajeed037@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-form-card">
+                        <h3><i class="fa-solid fa-paper-plane"></i> Send Me a Message</h3>
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-heading"></i>
+                                    <input type="text" id="subject" name="subject" placeholder="ServiceNow Integration Project" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <div class="input-wrapper textarea-wrapper">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                    <textarea id="message" name="message" rows="5" placeholder="Tell me about your project requirements..." required></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <span>Send Message</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <span class="logo-avatar">MM</span>
+                        <span class="logo-title">Muneer Majeed</span>
+                    </div>
+                    <p class="footer-text">© 2024 Muneer Majeed. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#projects">Projects</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="/frontend/js/main.js"></script>
+</body>
+</html>
