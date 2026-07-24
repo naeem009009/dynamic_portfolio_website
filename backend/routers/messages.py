@@ -4,7 +4,6 @@ from typing import List
 from database import get_db
 from models import MessageModel
 from schemas import MessageCreate, Message
-from routers.auth import get_current_user
 
 router = APIRouter(prefix="/messages", tags=["Messages"])
 
@@ -25,7 +24,7 @@ async def create_message(message: MessageCreate, db: Session = Depends(get_db)):
         )
 
 @router.get("/", response_model=List[Message])
-async def get_messages(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+async def get_messages(db: Session = Depends(get_db)):
     try:
         messages = db.query(MessageModel).order_by(MessageModel.created_at.desc()).all()
         return messages
@@ -36,7 +35,7 @@ async def get_messages(db: Session = Depends(get_db), current_user = Depends(get
         )
 
 @router.get("/{message_id}", response_model=Message)
-async def get_message(message_id: int, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+async def get_message(message_id: int, db: Session = Depends(get_db)):
     try:
         message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not message:
@@ -51,16 +50,12 @@ async def get_message(message_id: int, db: Session = Depends(get_db), current_us
         )
 
 @router.delete("/{message_id}")
-async def delete_message(
-    message_id: int,
-    db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
+async def delete_message(message_id: int, db: Session = Depends(get_db)):
     try:
         db_message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not db_message:
             raise HTTPException(status_code=404, detail="Message not found")
-        
+
         db.delete(db_message)
         db.commit()
         return {"message": "Message deleted successfully"}
@@ -74,16 +69,12 @@ async def delete_message(
         )
 
 @router.patch("/{message_id}/read")
-async def mark_as_read(
-    message_id: int,
-    db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
+async def mark_as_read(message_id: int, db: Session = Depends(get_db)):
     try:
         db_message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not db_message:
             raise HTTPException(status_code=404, detail="Message not found")
-        
+
         db_message.is_read = True
         db.commit()
         db.refresh(db_message)
@@ -96,4 +87,3 @@ async def mark_as_read(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to mark message as read: {str(e)}"
         )
-

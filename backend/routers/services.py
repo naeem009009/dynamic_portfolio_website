@@ -4,7 +4,6 @@ from typing import List
 from database import get_db
 from models import ServiceModel
 from schemas import ServiceCreate, Service
-from routers.auth import get_current_user
 
 router = APIRouter(prefix="/services", tags=["Services"])
 
@@ -35,11 +34,7 @@ async def get_service(service_id: int, db: Session = Depends(get_db)):
         )
 
 @router.post("/", response_model=Service)
-async def create_service(
-    service: ServiceCreate,
-    db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
+async def create_service(service: ServiceCreate, db: Session = Depends(get_db)):
     try:
         data = service.model_dump() if hasattr(service, "model_dump") else service.dict()
         new_service = ServiceModel(**data)
@@ -55,21 +50,16 @@ async def create_service(
         )
 
 @router.put("/{service_id}", response_model=Service)
-async def update_service(
-    service_id: int,
-    service: ServiceCreate,
-    db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
+async def update_service(service_id: int, service: ServiceCreate, db: Session = Depends(get_db)):
     try:
         db_service = db.query(ServiceModel).filter(ServiceModel.id == service_id).first()
         if not db_service:
             raise HTTPException(status_code=404, detail="Service not found")
-        
+
         data = service.model_dump() if hasattr(service, "model_dump") else service.dict()
         for key, value in data.items():
             setattr(db_service, key, value)
-        
+
         db.commit()
         db.refresh(db_service)
         return db_service
@@ -83,16 +73,12 @@ async def update_service(
         )
 
 @router.delete("/{service_id}")
-async def delete_service(
-    service_id: int,
-    db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
+async def delete_service(service_id: int, db: Session = Depends(get_db)):
     try:
         db_service = db.query(ServiceModel).filter(ServiceModel.id == service_id).first()
         if not db_service:
             raise HTTPException(status_code=404, detail="Service not found")
-        
+
         db.delete(db_service)
         db.commit()
         return {"message": "Service deleted successfully"}
@@ -104,4 +90,3 @@ async def delete_service(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to delete service: {str(e)}"
         )
-
