@@ -1,0 +1,36 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python Bytecode / Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# SQLite Database Files
+*.db
+*.sqlite3
+*.sqlite
+portfolio.db
+backend/portfolio.db
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.env
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
