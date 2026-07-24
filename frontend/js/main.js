@@ -362,35 +362,35 @@ function renderDefaultProjects() {
             description: 'A front-end mini application simulating a cryptocurrency exchange interface, built to strengthen component-based design and state management skills.',
             features: ['Real-time price updates', 'Interactive trading interface', 'Portfolio tracking', 'Responsive UI design'],
             tech_stack: 'React, JavaScript, CSS',
-            icon: '<i class="fa-solid fa-coins"></i>'
+            image_url: 'images/crypto-exchange-mini-app.svg'
         },
         {
             title: 'Snake Game',
             description: 'A classic browser-based Snake game built from scratch, focusing on DOM manipulation, event handling, and custom game-loop logic.',
             features: ['Classic gameplay mechanics', 'Score tracking', 'Responsive controls', 'Smooth animations'],
             tech_stack: 'HTML, CSS, JavaScript',
-            icon: '<i class="fa-solid fa-gamepad"></i>'
+            image_url: 'images/snake-game.svg'
         },
         {
             title: 'Tic Tac Toe Game',
             description: 'An interactive two-player Tic Tac Toe game demonstrating logic building, win-condition checks, and clean UI design.',
             features: ['Two-player mode', 'Win detection algorithm', 'Reset functionality', 'Clean responsive layout'],
             tech_stack: 'HTML, CSS, JavaScript',
-            icon: '<i class="fa-solid fa-xmark"></i>'
+            image_url: 'images/tic-tac-toe-game.svg'
         },
         {
             title: 'Color Generator Tool',
             description: 'A utility tool that generates and displays random color codes, built to practice DOM manipulation and dynamic style binding.',
             features: ['Random hex color generation', 'Hex code display', 'Copy to clipboard', 'Instant color preview'],
             tech_stack: 'HTML, CSS, JavaScript',
-            icon: '<i class="fa-solid fa-palette"></i>'
+            image_url: 'images/color-generator-tool.svg'
         }
     ];
 
     projectsContainer.innerHTML = defaultProjects.map(project => `
         <div class="glass-card project-card reveal">
             <div class="project-banner">
-                ${project.icon}
+                ${project.image_url ? `<img src="${project.image_url}" alt="${project.title}">` : '<i class="fa-solid fa-rocket"></i>'}
             </div>
             <div class="project-body">
                 <h3 class="project-title">${project.title}</h3>
