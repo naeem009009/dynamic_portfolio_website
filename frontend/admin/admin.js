@@ -1,7 +1,8 @@
 // API Configuration
-const API_BASE_URL = (window.location.origin && window.location.origin.startsWith('http'))
-    ? window.location.origin
-    : 'http://127.0.0.1:8000';
+const API_BASE_URL = (typeof window !== 'undefined' && window.ENV && window.ENV.API_BASE_URL)
+    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL)
+    || 'https://dynamic-portfolio-website.fastapicloud.dev'; // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
+
 
 // State
 let authToken = localStorage.getItem('authToken');

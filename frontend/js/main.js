@@ -2,10 +2,11 @@
 // Portfolio JavaScript - API Connectivity, ScrollSpy, Animations & Sidebar
 // ==========================================================================
 
-// API Configuration
-const API_BASE_URL = (window.location.origin && window.location.origin.startsWith('http'))
-    ? window.location.origin
-    : 'http://127.0.0.1:8000';
+
+// API Configuration with Environment & Fallback Support
+const API_BASE_URL = (typeof window !== 'undefined' && window.ENV && window.ENV.API_BASE_URL)
+    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL)
+    || 'https://dynamic-portfolio-website.fastapicloud.dev'; // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
 
 // DOM Elements
 const sidebar = document.getElementById('sidebar');
