@@ -46,13 +46,12 @@ loginForm.addEventListener('submit', async (e) => {
     const password = document.getElementById('login-password').value;
     
     try {
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-        
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
         });
         
         if (response.ok) {
