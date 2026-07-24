@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="colorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e91e63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c2185b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffc107;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff9800;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="250" fill="url(#colorGrad)" rx="15"/>
+  
+  <!-- Magic wand -->
+  <g transform="translate(200, 80) rotate(-45)">
+    <rect x="-4" y="-40" width="8" height="80" fill="#8b4513" rx="2"/>
+    <rect x="-6" y="-50" width="12" height="15" fill="#ffd700" rx="3"/>
+    <!-- Stars at wand tip -->
+    <polygon points="0,-60 -3,-55 0,-50 3,-55" fill="#fff" opacity="0.9"/>
+    <polygon points="-10,-55 -13,-50 -10,-45 -7,-50" fill="#fff" opacity="0.7"/>
+    <polygon points="10,-55 7,-50 10,-45 13,-50" fill="#fff" opacity="0.7"/>
+  </g>
+  
+  <!-- Swirling dotted lines -->
+  <path d="M 160 100 Q 140 80 120 100 Q 100 120 120 140" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+  <path d="M 240 100 Q 260 80 280 100 Q 300 120 280 140" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+  <path d="M 200 120 Q 180 140 200 160 Q 220 140 200 120" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+  
+  <!-- Hexagonal color swatches -->
+  <!-- Blue hexagon -->
+  <g transform="translate(120, 150)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12" fill="url(#blueGrad)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  </g>
+  
+  <!-- Pink hexagon -->
+  <g transform="translate(200, 170)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12" fill="url(#pinkGrad)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  </g>
+  
+  <!-- Yellow hexagon -->
+  <g transform="translate(280, 150)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12" fill="url(#yellowGrad)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  </g>
+  
+  <!-- Sparkles -->
+  <circle cx="100" cy="80" r="3" fill="#fff" opacity="0.8"/>
+  <circle cx="300" cy="90" r="2" fill="#fff" opacity="0.6"/>
+  <circle cx="150" cy="60" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="250" cy="70" r="3" fill="#fff" opacity="0.5"/>
+  
+  <!-- Title -->
+  <text x="200" y="225" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">COLOR GENERATOR TOOL</text>
+</svg>

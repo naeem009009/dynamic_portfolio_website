@@ -45,32 +45,60 @@ def seed_database():
         # Seed Projects
         projects_data = [
             {
+                "title": "Portfolio Website",
+                "description": "A personal portfolio website showcasing ServiceNow development skills, projects, and professional experience with a modern responsive design.",
+                "features": "Dynamic content loading\nAdmin panel for content management\nResponsive design\nContact form integration",
+                "tech_stack": "FastAPI, HTML, CSS, JavaScript, SQLite",
+                "image_url": "/frontend/images/portfolio-project.svg"
+            },
+            {
                 "title": "Crypto Exchange Mini App",
                 "description": "A front-end mini application simulating a cryptocurrency exchange interface, built to strengthen component-based design and state management skills in React.",
                 "features": "Real-time price updates\nInteractive trading interface\nPortfolio tracking\nResponsive design",
                 "tech_stack": "React, JavaScript, CSS",
-                "image_url": None
+                "image_url": "/frontend/images/crypto-exchange-mini-app.svg"
             },
             {
                 "title": "Snake Game",
                 "description": "A classic browser-based Snake game built from scratch, focusing on DOM manipulation, event handling, and game-loop logic.",
                 "features": "Classic gameplay mechanics\nScore tracking\nResponsive controls\nSmooth animations",
                 "tech_stack": "HTML, CSS, JavaScript",
-                "image_url": None
+                "image_url": "/frontend/images/snake-game.svg"
+            },
+            {
+                "title": "Crypto Snake Game - Neon Edition",
+                "description": "A cryptocurrency-themed Snake game featuring Bitcoin, Ethereum, and other crypto icons as collectibles with a neon grid aesthetic.",
+                "features": "Crypto icon collection\nNeon grid design\nScore tracking\nResponsive mobile layout",
+                "tech_stack": "HTML, CSS, JavaScript",
+                "image_url": "/frontend/images/crypto-snake-game-1.svg"
+            },
+            {
+                "title": "Crypto Snake Game - Gold Edition",
+                "description": "A premium version of the crypto Snake game with golden aesthetics, featuring multiple cryptocurrencies including Dogecoin and Cardano.",
+                "features": "Golden treasure theme\nMulti-coin support\nEnhanced graphics\nSmooth animations",
+                "tech_stack": "HTML, CSS, JavaScript",
+                "image_url": "/frontend/images/crypto-snake-game-2.svg"
+            },
+            {
+                "title": "Crypto Snake Game - Cyber Edition",
+                "description": "A cyberpunk-themed crypto Snake game with Polkadot, Chainlink, and Ripple icons in a futuristic dark grid environment.",
+                "features": "Cyberpunk aesthetics\nAdvanced crypto icons\nParticle effects\nImmersive gameplay",
+                "tech_stack": "HTML, CSS, JavaScript",
+                "image_url": "/frontend/images/crypto-snake-game-3.svg"
             },
             {
                 "title": "Tic Tac Toe Game",
                 "description": "An interactive two-player Tic Tac Toe game demonstrating logic building, win-condition checks, and clean UI design.",
                 "features": "Two-player mode\nWin detection\nReset functionality\nClean UI",
                 "tech_stack": "HTML, CSS, JavaScript",
-                "image_url": None
+                "image_url": "/frontend/images/tic-tac-toe-game.svg"
             },
             {
                 "title": "Color Generator Tool",
                 "description": "A utility tool that generates and displays random color codes, built to practice DOM manipulation and dynamic styling.",
                 "features": "Random color generation\nHex code display\nCopy to clipboard\nColor preview",
                 "tech_stack": "HTML, CSS, JavaScript",
-                "image_url": None
+                "image_url": "/frontend/images/color-generator-tool.svg"
             }
         ]
         
@@ -130,7 +158,7 @@ def seed_database():
             {
                 "title": "ServiceNow Development",
                 "description": "Expert ServiceNow platform development including custom applications, modules, and integrations tailored to your business needs.",
-                "icon": "🔧"
+                "icon": ""
             },
             {
                 "title": "Workflow Automation",

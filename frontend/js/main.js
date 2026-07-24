@@ -17,9 +17,53 @@ const contactForm = document.getElementById('contact-form');
 const skillsContainer = document.getElementById('skills-container');
 const projectsContainer = document.getElementById('projects-container');
 const servicesContainer = document.getElementById('services-container');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const themeText = document.getElementById('themeText');
 
 /* --------------------------------------------------------------------------
-   1. Mobile Navigation & Sidebar Drawer Controls
+   1. Theme Toggle Functionality
+   -------------------------------------------------------------------------- */
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+
+    // Update icon and text
+    if (newTheme === 'light') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        themeText.textContent = 'Light Mode';
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        themeText.textContent = 'Dark Mode';
+    }
+}
+
+// Initialize theme from localStorage or default to dark
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+
+    html.setAttribute('data-theme', savedTheme);
+
+    if (savedTheme === 'light') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        themeText.textContent = 'Light Mode';
+    }
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+}
+
+/* --------------------------------------------------------------------------
+   2. Mobile Navigation & Sidebar Drawer Controls
    -------------------------------------------------------------------------- */
 if (mobileNavToggle) {
     mobileNavToggle.addEventListener('click', () => {
@@ -94,6 +138,15 @@ function revealOnScroll() {
             });
         }
     });
+
+    // Handle about text card animation
+    const aboutTextCard = document.querySelector('.about-text-card');
+    if (aboutTextCard) {
+        const cardTop = aboutTextCard.getBoundingClientRect().top;
+        if (cardTop < windowHeight - 100) {
+            aboutTextCard.classList.add('active');
+        }
+    }
 }
 
 window.addEventListener('scroll', revealOnScroll);
@@ -368,23 +421,32 @@ async function loadServices() {
     }
 }
 
+function getServiceIconMarkup(icon) {
+    if (!icon || icon.trim() === '') return '';
+    if (icon.startsWith('<')) return icon;
+    if (icon.startsWith('/') || icon.startsWith('http') || icon.includes('.')) {
+        return `<img src="${icon}" alt="Service Icon" class="service-icon-img" style="width:100%; height:100%; object-fit:contain;">`;
+    }
+    return icon;
+}
+
 function renderServices(services) {
-    servicesContainer.innerHTML = services.map(service => `
+    servicesContainer.innerHTML = services.map(service => {
+        const iconMarkup = getServiceIconMarkup(service.icon);
+        return `
         <div class="glass-card service-card reveal">
-            <div class="service-icon-box">
-                ${service.icon || '<i class="fa-solid fa-gear"></i>'}
-            </div>
+            ${iconMarkup ? `<div class="service-icon-box">${iconMarkup}</div>` : ''}
             <h3 class="service-title">${service.title}</h3>
             <p class="service-description">${service.description}</p>
         </div>
-    `).join('');
+    `}).join('');
     setTimeout(revealOnScroll, 100);
 }
 
 function renderDefaultServices() {
     const defaultServices = [
         {
-            icon: '<i class="fa-solid fa-wrench"></i>',
+            icon: '',
             title: 'ServiceNow Development',
             description: 'Expert ServiceNow platform development including custom applications, modules, and integrations tailored to your business needs.'
         },
@@ -405,15 +467,15 @@ function renderDefaultServices() {
         }
     ];
 
-    servicesContainer.innerHTML = defaultServices.map(service => `
+    servicesContainer.innerHTML = defaultServices.map(service => {
+        const iconMarkup = getServiceIconMarkup(service.icon);
+        return `
         <div class="glass-card service-card reveal">
-            <div class="service-icon-box">
-                ${service.icon}
-            </div>
+            ${iconMarkup ? `<div class="service-icon-box">${iconMarkup}</div>` : ''}
             <h3 class="service-title">${service.title}</h3>
             <p class="service-description">${service.description}</p>
         </div>
-    `).join('');
+    `}).join('');
     setTimeout(revealOnScroll, 100);
 }
 
@@ -458,13 +520,65 @@ if (contactForm) {
 }
 
 /* --------------------------------------------------------------------------
-   10. Initialization
+   10. Typing Effect for Hero Tagline
+   -------------------------------------------------------------------------- */
+function typeWriterEffect() {
+    const typingElement = document.querySelector('.typing-text');
+    if (!typingElement) return;
+
+    const taglines = [
+        "Building intelligent ServiceNow solutions",
+        "Automating enterprise workflows",
+        "Transforming ITSM operations"
+    ];
+    
+    let taglineIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 50;
+
+    function type() {
+        const currentTagline = taglines[taglineIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentTagline.substring(0, charIndex - 1);
+            charIndex--;
+            typingSpeed = 30;
+        } else {
+            typingElement.textContent = currentTagline.substring(0, charIndex + 1);
+            charIndex++;
+            typingSpeed = 50;
+        }
+
+        if (!isDeleting && charIndex === currentTagline.length) {
+            isDeleting = true;
+            typingSpeed = 2000; // Pause at end
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            taglineIndex = (taglineIndex + 1) % taglines.length;
+            typingSpeed = 500; // Pause before next tagline
+        }
+
+        setTimeout(type, typingSpeed);
+    }
+
+    type();
+}
+
+/* --------------------------------------------------------------------------
+   11. Initialization
    -------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme
+    initializeTheme();
+
     loadSkills();
     loadProjects();
     loadServices();
-    
+
+    // Start typing effect
+    setTimeout(typeWriterEffect, 1000);
+
     // Initial scroll triggers
     setTimeout(() => {
         updateActiveSection();

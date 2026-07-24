@@ -49,6 +49,10 @@
         </div>
 
         <div class="sidebar-bottom">
+            <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+                <span id="themeText">Dark Mode</span>
+            </button>
             <a href="/admin" class="sidebar-admin-btn">
                 <i class="fa-solid fa-shield-halved"></i>
                 <span>Admin Panel</span>
@@ -65,54 +69,87 @@
 
         <!-- Hero Section -->
         <section id="home" class="hero section">
-            <div class="hero-bg-orbs">
-                <div class="orb orb-1"></div>
-                <div class="orb orb-2"></div>
-                <div class="orb orb-3"></div>
-            </div>
+            <!-- Background Effects -->
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-particles"></div>
+            
             <div class="hero-container">
-                <div class="hero-text-content">
-                    <div class="badge-tag">
-                        <span class="pulse-dot"></span> Open for ITSM & Workflow Projects
+                <!-- Left Content -->
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        SERVICENOW · ITSM · WORKFLOW AUTOMATION
                     </div>
+                    
                     <h1 class="hero-title">
-                        <span class="title-line">ServiceNow Developer</span>
-                        <span class="title-line">& Workflow Automation</span>
-                        <span class="title-line highlight">Specialist</span>
+                        Hi, I'm <span class="gradient-name">Muneer Majeed</span>
                     </h1>
+                    
                     <p class="hero-subtitle">
-                        Transforming enterprise operations through intelligent ITSM solutions and automated workflows. 1.5+ years of hands-on experience in ServiceNow platform development.
+                        ServiceNow Developer & Workflow Automation Specialist
                     </p>
+                    
+                    <div class="hero-description-box">
+                        <div class="description-accent"></div>
+                        <p class="hero-tagline">
+                            <span class="typing-text"></span><span class="cursor">|</span>
+                        </p>
+                    </div>
+                    
                     <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
-                        <a href="#projects" class="btn btn-outline"><i class="fa-solid fa-eye"></i> View Projects</a>
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fa-solid fa-rocket"></i> View Projects
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fa-solid fa-handshake"></i> Hire Me
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fa-solid fa-download"></i> Download Resume
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fa-solid fa-envelope"></i> Contact Me
+                        </a>
                     </div>
                 </div>
-
-                <div class="hero-stats-grid">
-                    <div class="glass-card stat-card">
-                        <div class="stat-icon-wrapper"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-number" data-target="1.5" data-suffix="+">0</span>
-                            <span class="stat-label">Years Experience</span>
+                
+                <!-- Right Content - Floating Card -->
+                <div class="hero-right">
+                    <div class="orbit-lines">
+                        <div class="orbit-circle orbit-1"></div>
+                        <div class="orbit-circle orbit-2"></div>
+                    </div>
+                    
+                    <div class="floating-card glass-card">
+                        <div class="card-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Freelance-ready</span>
+                        </div>
+                        <p class="card-description">
+                            Available for ServiceNow development projects and workflow automation solutions
+                        </p>
+                        <div class="card-skills">
+                            <span class="skill-label label-blue">ITSM</span>
+                            <span class="skill-label label-purple">Flow Designer</span>
+                            <span class="skill-label label-cyan">Automation</span>
                         </div>
                     </div>
-                    <div class="glass-card stat-card">
-                        <div class="stat-icon-wrapper"><i class="fa-solid fa-rocket"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-number" data-target="10" data-suffix="+">0</span>
-                            <span class="stat-label">Projects Delivered</span>
-                        </div>
+                    
+                    <!-- Floating Icon Badges -->
+                    <div class="floating-badge badge-1">
+                        <i class="fa-solid fa-code"></i>
                     </div>
-                    <div class="glass-card stat-card">
-                        <div class="stat-icon-wrapper"><i class="fa-solid fa-face-smile"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-number" data-target="100" data-suffix="%">0</span>
-                            <span class="stat-label">Client Satisfaction</span>
-                        </div>
+                    <div class="floating-badge badge-2">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <div class="floating-badge badge-3">
+                        <i class="fa-solid fa-cogs"></i>
+                    </div>
+                    <div class="floating-badge badge-4">
+                        <i class="fa-solid fa-cloud"></i>
                     </div>
                 </div>
             </div>
+            
             <div class="scroll-indicator">
                 <span>Scroll Down</span>
                 <div class="scroll-arrow"></div>
@@ -120,55 +157,33 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="about section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">About Me</h2>
-                    <p class="section-subtitle">Passionate about automation and enterprise innovation</p>
-                </div>
-                <div class="about-grid">
-                    <div class="about-main-card glass-card">
-                        <h3><i class="fa-solid fa-user-check"></i> Professional Summary</h3>
-                        <p>
-                            Motivated and detail-oriented ServiceNow Developer with 1.5 years of hands-on practical experience in IT Service Management (ITSM) and enterprise workflow automation. Proven ability to configure, customize, and extend the ServiceNow platform using client scripts, UI policies, business rules, and Flow Designer.
-                        </p>
-                        <p>
-                            I combine platform development skills with frontend fundamentals (HTML, CSS, JavaScript) to deliver well-rounded, user-focused solutions. My strong foundation in secure data architecture through custom tables, roles, and access permissions ensures robust and scalable implementations.
-                        </p>
-                        <div class="about-highlights">
-                            <div class="highlight-chip"><i class="fa-solid fa-bullseye"></i> ITSM Expertise</div>
-                            <div class="highlight-chip"><i class="fa-solid fa-gears"></i> Workflow Automation</div>
-                            <div class="highlight-chip"><i class="fa-solid fa-wrench"></i> ServiceNow Customization</div>
-                            <div class="highlight-chip"><i class="fa-solid fa-code"></i> Frontend Development</div>
-                        </div>
-                    </div>
-
-                    <div class="about-side-cards">
-                        <div class="glass-card info-card">
-                            <h3><i class="fa-solid fa-address-card"></i> Contact Information</h3>
-                            <ul class="info-list">
-                                <li><i class="fa-solid fa-location-dot icon-gold"></i> <span>Lahore, Pakistan</span></li>
-                                <li><i class="fa-solid fa-phone icon-gold"></i> <span>+92 345 5322037</span></li>
-                                <li><i class="fa-solid fa-envelope icon-gold"></i> <span>muneermajeed037@gmail.com</span></li>
-                            </ul>
-                        </div>
-                        <div class="glass-card info-card">
-                            <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
-                            <div class="education-item">
-                                <span class="edu-degree">Bachelor of Computer Science</span>
-                                <span class="edu-meta"><i class="fa-solid fa-calendar"></i> 2024</span>
-                                <span class="edu-school">University of Baltistan</span>
-                            </div>
-                            <div class="education-item">
-                                <span class="edu-degree">ICS - Computer Science</span>
-                                <span class="edu-meta"><i class="fa-solid fa-calendar"></i> 2018 – 2020</span>
-                                <span class="edu-school">Public School & College</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+       <section class="section container reveal visible" id="about">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-sub">A concise snapshot of who I am and the problems I solve with AI.</p>
+        <div class="about-grid">
+          <div class="profile-frame glass reveal visible">
+            <img src="frontend\WhatsApp Image 2026-07-23 at 10.46.32 PM.jpeg" alt="Muneer Majeed" class="profile-image">
+            <p class="illustration-name">Muneer Majeed</p>
+          </div>
+          <div class="glass reveal visible" style="padding: 1.75rem">
+            <div class="about-text">
+              <h3 class="section-sub"><i class="fa-solid fa-user-check"></i> Professional Summary</h3>
+              <p>
+                Motivated and detail-oriented ServiceNow Developer with 1.5 years of hands-on practical experience in IT Service Management (ITSM) and enterprise workflow automation. Proven ability to configure, customize, and extend the ServiceNow platform using client scripts, UI policies, business rules, and Flow Designer.
+              </p>
+              <p>
+                I combine platform development skills with frontend fundamentals (HTML, CSS, JavaScript) to deliver well-rounded, user-focused solutions. My strong foundation in secure data architecture through custom tables, roles, and access permissions ensures robust and scalable implementations.
+              </p>
+              <div class="about-badges">
+                <div class="highlight-chip"><i class="fa-solid fa-bullseye"></i> ITSM Expertise</div>
+                <div class="highlight-chip"><i class="fa-solid fa-gears"></i> Workflow Automation</div>
+                <div class="highlight-chip"><i class="fa-solid fa-wrench"></i> ServiceNow Customization</div>
+                <div class="highlight-chip"><i class="fa-solid fa-code"></i> Frontend Development</div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
         <!-- Skills Section -->
         <section id="skills" class="skills section reveal">
@@ -272,6 +287,27 @@
                             <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
                             <h3>Email</h3>
                             <p>muneermajeed037@gmail.com</p>
+                        </div>
+                        <div class="glass-card contact-card">
+                            <a href="https://wa.me/923455322037" class="social-link whatsapp-link" target="_blank" aria-label="WhatsApp">
+                                <div class="contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                                <h3>WhatsApp</h3>
+                                <p>+923455322037</p>
+                            </a>
+                        </div>
+                        <div class="glass-card contact-card">
+                            <a href="https://www.facebook.com/share/1ZJZwyVt8S/" class="social-link facebook-link" target="_blank" aria-label="Facebook">
+                                <div class="contact-icon"><i class="fa-brands fa-facebook"></i></div>
+                                <h3>Facebook</h3>
+                                <p>Connect with me</p>
+                            </a>
+                        </div>
+                        <div class="glass-card contact-card">
+                            <a href="https://www.linkedin.com/in/muneer-majeed-7112352a3" class="social-link linkedin-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+                                <h3>LinkedIn</h3>
+                                <p>Connect with me</p>
+                            </a>
                         </div>
                     </div>
 

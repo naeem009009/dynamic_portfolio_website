@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="tictacGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="magentaGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cc00cc;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="250" fill="url(#tictacGrad)" rx="15"/>
+  
+  <!-- Faint background X and O shapes -->
+  <text x="50" y="80" font-family="Arial" font-size="60" fill="rgba(255,255,255,0.1)" font-weight="bold">X</text>
+  <text x="320" y="100" font-family="Arial" font-size="50" fill="rgba(255,255,255,0.1)" font-weight="bold">O</text>
+  <text x="80" y="200" font-family="Arial" font-size="40" fill="rgba(255,255,255,0.08)" font-weight="bold">O</text>
+  <text x="300" y="180" font-family="Arial" font-size="45" fill="rgba(255,255,255,0.08)" font-weight="bold">X</text>
+  
+  <!-- Main Tic Tac Toe Grid -->
+  <g transform="translate(200, 110)" filter="url(#glow)">
+    <!-- Grid lines with glass effect -->
+    <line x1="-60" y1="-40" x2="-60" y2="40" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="60" y1="-40" x2="60" y2="40" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    
+    <line x1="-90" y1="0" x2="90" y2="0" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-90" y1="-40" x2="90" y2="-40" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-90" y1="40" x2="90" y2="40" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- X marker (top left) -->
+    <g transform="translate(-30, -20)">
+      <line x1="-15" y1="-15" x2="15" y2="15" stroke="url(#blueGlow)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="15" y1="-15" x2="-15" y2="15" stroke="url(#blueGlow)" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    
+    <!-- O marker (top right) -->
+    <circle cx="30" cy="-20" r="15" stroke="url(#magentaGlow)" stroke-width="4" fill="none"/>
+    
+    <!-- X marker (middle left) -->
+    <g transform="translate(-30, 0)">
+      <line x1="-15" y1="-15" x2="15" y2="15" stroke="url(#magentaGlow)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="15" y1="-15" x2="-15" y2="15" stroke="url(#magentaGlow)" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    
+    <!-- Glowing star (center) -->
+    <polygon points="0,-20 5,-5 20,-5 8,5 13,20 0,10 -13,20 -8,5 -20,-5 -5,-5" fill="#ffd700" filter="url(#glow)"/>
+    
+    <!-- O marker (bottom right) -->
+    <circle cx="30" cy="20" r="15" stroke="url(#blueGlow)" stroke-width="4" fill="none"/>
+  </g>
+  
+  <!-- Sparkles around the grid -->
+  <circle cx="120" cy="70" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="280" cy="60" r="3" fill="#fff" opacity="0.6"/>
+  <circle cx="100" cy="150" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="300" cy="140" r="2" fill="#fff" opacity="0.5"/>
+  <circle cx="200" cy="50" r="2" fill="#fff" opacity="0.6"/>
+  
+  <!-- Title -->
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle">TIC TAC TOE</text>
+  <text x="200" y="225" font-family="Arial, sans-serif" font-size="16" font-weight="normal" fill="rgba(255,255,255,0.8)" text-anchor="middle">GAME</text>
+</svg>

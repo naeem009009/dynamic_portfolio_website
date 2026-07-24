@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="magentaGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cc00cc;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="250" fill="url(#snakeGrad)" rx="15"/>
+  
+  <!-- Grid background -->
+  <g stroke="rgba(255,255,255,0.1)" stroke-width="1">
+    <line x1="0" y1="40" x2="400" y2="40"/>
+    <line x1="0" y1="80" x2="400" y2="80"/>
+    <line x1="0" y1="120" x2="400" y2="120"/>
+    <line x1="0" y1="160" x2="400" y2="160"/>
+    <line x1="40" y1="0" x2="40" y2="250"/>
+    <line x1="80" y1="0" x2="80" y2="250"/>
+    <line x1="120" y1="0" x2="120" y2="250"/>
+    <line x1="160" y1="0" x2="160" y2="250"/>
+    <line x1="200" y1="0" x2="200" y2="250"/>
+    <line x1="240" y1="0" x2="240" y2="250"/>
+    <line x1="280" y1="0" x2="280" y2="250"/>
+    <line x1="320" y1="0" x2="320" y2="250"/>
+    <line x1="360" y1="0" x2="360" y2="250"/>
+  </g>
+  
+  <!-- Game container rounded square -->
+  <rect x="100" y="40" width="200" height="140" fill="rgba(0,0,0,0.3)" rx="10" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+  
+  <!-- Snake body -->
+  <g filter="url(#glow)">
+    <!-- Head (star shape) -->
+    <polygon points="200,70 205,80 215,80 207,87 210,97 200,90 190,97 193,87 185,80 195,80" fill="url(#magentaGlow)"/>
+    
+    <!-- Body segments -->
+    <circle cx="180" cy="85" r="12" fill="url(#blueGlow)"/>
+    <circle cx="160" cy="85" r="12" fill="url(#magentaGlow)"/>
+    <circle cx="140" cy="85" r="12" fill="url(#blueGlow)"/>
+    <circle cx="120" cy="105" r="12" fill="url(#magentaGlow)"/>
+    <circle cx="120" cy="125" r="12" fill="url(#blueGlow)"/>
+    <circle cx="140" cy="125" r="12" fill="url(#magentaGlow)"/>
+    <circle cx="160" cy="125" r="12" fill="url(#blueGlow)"/>
+  </g>
+  
+  <!-- Food dots (glowing) -->
+  <circle cx="280" cy="80" r="8" fill="#ffd700" filter="url(#glow)"/>
+  <circle cx="260" cy="120" r="6" fill="#00ff00" filter="url(#glow)"/>
+  <circle cx="290" cy="150" r="7" fill="#ff6600" filter="url(#glow)"/>
+  
+  <!-- Sparkles -->
+  <circle cx="130" cy="60" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="270" cy="60" r="2" fill="#fff" opacity="0.6"/>
+  <circle cx="110" cy="140" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="290" cy="100" r="2" fill="#fff" opacity="0.5"/>
+  
+  <!-- Title with glowing effect -->
+  <text x="200" y="215" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle" filter="url(#glow)">SNAKE GAME</text>
+</svg>
