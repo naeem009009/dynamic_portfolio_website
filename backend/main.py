@@ -52,9 +52,8 @@ allow_credentials = "*" not in origins
 # Add CORS Middleware supporting Vercel previews and production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_origin_regex=r"https://.*\.vercel\.app",
-    allow_credentials=allow_credentials,
+    allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
