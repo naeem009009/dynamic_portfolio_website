@@ -1,7 +1,5 @@
 // API Configuration
-const API_BASE_URL = (typeof window !== 'undefined' && window.ENV && window.ENV.API_BASE_URL)
-    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL) // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
-
+const API_BASE_URL = 'https://muneer.fastapicloud.dev';
 
 // State
 let authToken = localStorage.getItem('authToken');
@@ -45,12 +43,17 @@ loginForm.addEventListener('submit', async (e) => {
     const password = document.getElementById('login-password').value;
 
     try {
+        // Form Data required for FastAPI OAuth2 Password Flow
+        const formData = new URLSearchParams();
+        formData.append('username', username);
+        formData.append('password', password);
+
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify({ username, password })
+            body: formData
         });
 
         if (response.ok) {
@@ -451,7 +454,7 @@ function setupForms() {
         const data = {
             category: document.getElementById('skill-category').value,
             name: document.getElementById('skill-name').value,
-            level: document.getElementById('skill-level').value
+            level: parseInt(document.getElementById('skill-level').value, 10)
         };
 
         let result;
