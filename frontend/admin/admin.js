@@ -1,7 +1,6 @@
 // API Configuration
 const API_BASE_URL = (typeof window !== 'undefined' && window.ENV && window.ENV.API_BASE_URL)
-    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL)
-    || 'https://dynamic-portfolio-website.fastapicloud.dev'; // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
+    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL) // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
 
 
 // State
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         showLogin();
     }
-    
+
     setupNavigation();
     setupForms();
 });
@@ -41,10 +40,10 @@ function showDashboard() {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
-    
+
     try {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
@@ -53,7 +52,7 @@ loginForm.addEventListener('submit', async (e) => {
             },
             body: JSON.stringify({ username, password })
         });
-        
+
         if (response.ok) {
             const data = await response.json();
             authToken = data.access_token;
@@ -81,7 +80,7 @@ function setupNavigation() {
             e.preventDefault();
             const section = link.dataset.section;
             switchSection(section);
-            
+
             navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
         });
@@ -90,13 +89,13 @@ function setupNavigation() {
 
 function switchSection(section) {
     currentSection = section;
-    
+
     document.querySelectorAll('.dashboard-section').forEach(s => {
         s.classList.remove('active');
     });
-    
+
     document.getElementById(`section-${section}`).classList.add('active');
-    
+
     const titles = {
         dashboard: 'Dashboard',
         projects: 'Projects',
@@ -104,9 +103,9 @@ function switchSection(section) {
         services: 'Services',
         messages: 'Messages'
     };
-    
+
     document.getElementById('page-title').textContent = titles[section];
-    
+
     if (section === 'dashboard') {
         loadDashboardData();
     } else if (section === 'projects') {
@@ -126,17 +125,17 @@ async function fetchAPI(endpoint, options = {}) {
         'Content-Type': 'application/json',
         ...options.headers
     };
-    
+
     if (authToken) {
         headers['Authorization'] = `Bearer ${authToken}`;
     }
-    
+
     try {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
             headers,
             ...options
         });
-        
+
         if (!response.ok) {
             if (response.status === 401) {
                 authToken = null;
@@ -146,7 +145,7 @@ async function fetchAPI(endpoint, options = {}) {
             }
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         return await response.json();
     } catch (error) {
         console.error('API Error:', error);
@@ -160,7 +159,7 @@ async function loadDashboardData() {
     const skills = await fetchAPI('/skills/');
     const services = await fetchAPI('/services/');
     const messages = await fetchAPI('/messages/');
-    
+
     document.getElementById('stat-projects').textContent = projects ? projects.length : 0;
     document.getElementById('stat-skills').textContent = skills ? skills.length : 0;
     document.getElementById('stat-services').textContent = services ? services.length : 0;
@@ -171,7 +170,7 @@ async function loadDashboardData() {
 async function loadProjects() {
     const projects = await fetchAPI('/projects/');
     const tbody = document.getElementById('projects-table-body');
-    
+
     if (projects) {
         tbody.innerHTML = projects.map(project => `
             <tr>
@@ -192,7 +191,7 @@ async function loadProjects() {
 function openProjectModal(project = null) {
     const modal = document.getElementById('project-modal');
     const title = document.getElementById('project-modal-title');
-    
+
     if (project) {
         title.textContent = 'Edit Project';
         document.getElementById('project-id').value = project.id;
@@ -206,7 +205,7 @@ function openProjectModal(project = null) {
         document.getElementById('project-form').reset();
         document.getElementById('project-id').value = '';
     }
-    
+
     modal.classList.add('active');
 }
 
@@ -226,7 +225,7 @@ async function deleteProject(id) {
         const result = await fetchAPI(`/projects/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (result) {
             loadProjects();
         }
@@ -237,7 +236,7 @@ async function deleteProject(id) {
 async function loadSkills() {
     const skills = await fetchAPI('/skills/');
     const tbody = document.getElementById('skills-table-body');
-    
+
     if (skills) {
         tbody.innerHTML = skills.map(skill => `
             <tr>
@@ -258,7 +257,7 @@ async function loadSkills() {
 function openSkillModal(skill = null) {
     const modal = document.getElementById('skill-modal');
     const title = document.getElementById('skill-modal-title');
-    
+
     if (skill) {
         title.textContent = 'Edit Skill';
         document.getElementById('skill-id').value = skill.id;
@@ -270,7 +269,7 @@ function openSkillModal(skill = null) {
         document.getElementById('skill-form').reset();
         document.getElementById('skill-id').value = '';
     }
-    
+
     modal.classList.add('active');
 }
 
@@ -290,7 +289,7 @@ async function deleteSkill(id) {
         const result = await fetchAPI(`/skills/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (result) {
             loadSkills();
         }
@@ -301,7 +300,7 @@ async function deleteSkill(id) {
 async function loadServices() {
     const services = await fetchAPI('/services/');
     const tbody = document.getElementById('services-table-body');
-    
+
     if (services) {
         tbody.innerHTML = services.map(service => `
             <tr>
@@ -321,7 +320,7 @@ async function loadServices() {
 function openServiceModal(service = null) {
     const modal = document.getElementById('service-modal');
     const title = document.getElementById('service-modal-title');
-    
+
     if (service) {
         title.textContent = 'Edit Service';
         document.getElementById('service-id').value = service.id;
@@ -333,7 +332,7 @@ function openServiceModal(service = null) {
         document.getElementById('service-form').reset();
         document.getElementById('service-id').value = '';
     }
-    
+
     modal.classList.add('active');
 }
 
@@ -353,7 +352,7 @@ async function deleteService(id) {
         const result = await fetchAPI(`/services/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (result) {
             loadServices();
         }
@@ -364,7 +363,7 @@ async function deleteService(id) {
 async function loadMessages() {
     const messages = await fetchAPI('/messages/');
     const tbody = document.getElementById('messages-table-body');
-    
+
     if (messages) {
         tbody.innerHTML = messages.map(message => `
             <tr>
@@ -392,7 +391,7 @@ async function markAsRead(id) {
     const result = await fetchAPI(`/messages/${id}/read`, {
         method: 'PATCH'
     });
-    
+
     if (result) {
         loadMessages();
     }
@@ -403,7 +402,7 @@ async function deleteMessage(id) {
         const result = await fetchAPI(`/messages/${id}`, {
             method: 'DELETE'
         });
-        
+
         if (result) {
             loadMessages();
         }
@@ -415,7 +414,7 @@ function setupForms() {
     // Project Form
     document.getElementById('project-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const id = document.getElementById('project-id').value;
         const data = {
             title: document.getElementById('project-title').value,
@@ -424,7 +423,7 @@ function setupForms() {
             tech_stack: document.getElementById('project-tech-stack').value,
             image_url: document.getElementById('project-image-url').value
         };
-        
+
         let result;
         if (id) {
             result = await fetchAPI(`/projects/${id}`, {
@@ -437,24 +436,24 @@ function setupForms() {
                 body: JSON.stringify(data)
             });
         }
-        
+
         if (result) {
             closeProjectModal();
             loadProjects();
         }
     });
-    
+
     // Skill Form
     document.getElementById('skill-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const id = document.getElementById('skill-id').value;
         const data = {
             category: document.getElementById('skill-category').value,
             name: document.getElementById('skill-name').value,
             level: document.getElementById('skill-level').value
         };
-        
+
         let result;
         if (id) {
             result = await fetchAPI(`/skills/${id}`, {
@@ -467,24 +466,24 @@ function setupForms() {
                 body: JSON.stringify(data)
             });
         }
-        
+
         if (result) {
             closeSkillModal();
             loadSkills();
         }
     });
-    
+
     // Service Form
     document.getElementById('service-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const id = document.getElementById('service-id').value;
         const data = {
             title: document.getElementById('service-title').value,
             description: document.getElementById('service-description').value,
             icon: document.getElementById('service-icon').value
         };
-        
+
         let result;
         if (id) {
             result = await fetchAPI(`/services/${id}`, {
@@ -497,7 +496,7 @@ function setupForms() {
                 body: JSON.stringify(data)
             });
         }
-        
+
         if (result) {
             closeServiceModal();
             loadServices();
