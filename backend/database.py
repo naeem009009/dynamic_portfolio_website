@@ -2,9 +2,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
+from dotenv import load_dotenv
 
 # Get BASE_DIR (points to backend root directory)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 # Default to local SQLite database if DATABASE_URL environment variable is not set
 DEFAULT_SQLITE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'portfolio.db')}"

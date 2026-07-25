@@ -1,9 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
+import logging
 from database import get_db
-from models import ServiceModel
+from models import ServiceModel, User
 from schemas import ServiceCreate, Service
+from routers.auth import get_current_user
+from seed_database import seed_database
+
+logger = logging.getLogger("services_router")
 
 router = APIRouter(prefix="/services", tags=["Services"])
 
@@ -11,8 +16,14 @@ router = APIRouter(prefix="/services", tags=["Services"])
 async def get_services(db: Session = Depends(get_db)):
     try:
         services = db.query(ServiceModel).all()
+        if not services:
+            logger.info("[DEBUG] No services found in database. Running auto-seeding fallback...")
+            print("[DEBUG] No services found in database. Running auto-seeding fallback...")
+            seed_database()
+            services = db.query(ServiceModel).all()
         return services
     except Exception as e:
+        logger.error(f"[ERROR] Failed to fetch services: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to fetch services: {str(e)}"
@@ -33,8 +44,12 @@ async def get_service(service_id: int, db: Session = Depends(get_db)):
             detail=f"Failed to fetch service: {str(e)}"
         )
 
-@router.post("/", response_model=Service)
-async def create_service(service: ServiceCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=Service, status_code=status.HTTP_201_CREATED)
+async def create_service(
+    service: ServiceCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         data = service.model_dump() if hasattr(service, "model_dump") else service.dict()
         new_service = ServiceModel(**data)
@@ -50,7 +65,12 @@ async def create_service(service: ServiceCreate, db: Session = Depends(get_db)):
         )
 
 @router.put("/{service_id}", response_model=Service)
-async def update_service(service_id: int, service: ServiceCreate, db: Session = Depends(get_db)):
+async def update_service(
+    service_id: int,
+    service: ServiceCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_service = db.query(ServiceModel).filter(ServiceModel.id == service_id).first()
         if not db_service:
@@ -73,7 +93,11 @@ async def update_service(service_id: int, service: ServiceCreate, db: Session = 
         )
 
 @router.delete("/{service_id}")
-async def delete_service(service_id: int, db: Session = Depends(get_db)):
+async def delete_service(
+    service_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_service = db.query(ServiceModel).filter(ServiceModel.id == service_id).first()
         if not db_service:

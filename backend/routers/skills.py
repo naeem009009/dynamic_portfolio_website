@@ -1,9 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
+import logging
 from database import get_db
-from models import SkillModel
+from models import SkillModel, User
 from schemas import SkillCreate, Skill
+from routers.auth import get_current_user
+from seed_database import seed_database
+
+logger = logging.getLogger("skills_router")
 
 router = APIRouter(prefix="/skills", tags=["Skills"])
 
@@ -11,8 +16,14 @@ router = APIRouter(prefix="/skills", tags=["Skills"])
 async def get_skills(db: Session = Depends(get_db)):
     try:
         skills = db.query(SkillModel).all()
+        if not skills:
+            logger.info("[DEBUG] No skills found in database. Running auto-seeding fallback...")
+            print("[DEBUG] No skills found in database. Running auto-seeding fallback...")
+            seed_database()
+            skills = db.query(SkillModel).all()
         return skills
     except Exception as e:
+        logger.error(f"[ERROR] Failed to fetch skills: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to fetch skills: {str(e)}"
@@ -33,8 +44,12 @@ async def get_skill(skill_id: int, db: Session = Depends(get_db)):
             detail=f"Failed to fetch skill: {str(e)}"
         )
 
-@router.post("/", response_model=Skill)
-async def create_skill(skill: SkillCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=Skill, status_code=status.HTTP_201_CREATED)
+async def create_skill(
+    skill: SkillCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         data = skill.model_dump() if hasattr(skill, "model_dump") else skill.dict()
         new_skill = SkillModel(**data)
@@ -50,7 +65,12 @@ async def create_skill(skill: SkillCreate, db: Session = Depends(get_db)):
         )
 
 @router.put("/{skill_id}", response_model=Skill)
-async def update_skill(skill_id: int, skill: SkillCreate, db: Session = Depends(get_db)):
+async def update_skill(
+    skill_id: int,
+    skill: SkillCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_skill = db.query(SkillModel).filter(SkillModel.id == skill_id).first()
         if not db_skill:
@@ -73,7 +93,11 @@ async def update_skill(skill_id: int, skill: SkillCreate, db: Session = Depends(
         )
 
 @router.delete("/{skill_id}")
-async def delete_skill(skill_id: int, db: Session = Depends(get_db)):
+async def delete_skill(
+    skill_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_skill = db.query(SkillModel).filter(SkillModel.id == skill_id).first()
         if not db_skill:

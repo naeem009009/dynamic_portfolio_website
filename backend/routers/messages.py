@@ -2,12 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
-from models import MessageModel
+from models import MessageModel, User
 from schemas import MessageCreate, Message
+from routers.auth import get_current_user
 
 router = APIRouter(prefix="/messages", tags=["Messages"])
 
-@router.post("/", response_model=Message)
+@router.post("/", response_model=Message, status_code=status.HTTP_201_CREATED)
 async def create_message(message: MessageCreate, db: Session = Depends(get_db)):
     try:
         data = message.model_dump() if hasattr(message, "model_dump") else message.dict()
@@ -24,7 +25,10 @@ async def create_message(message: MessageCreate, db: Session = Depends(get_db)):
         )
 
 @router.get("/", response_model=List[Message])
-async def get_messages(db: Session = Depends(get_db)):
+async def get_messages(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         messages = db.query(MessageModel).order_by(MessageModel.created_at.desc()).all()
         return messages
@@ -35,7 +39,11 @@ async def get_messages(db: Session = Depends(get_db)):
         )
 
 @router.get("/{message_id}", response_model=Message)
-async def get_message(message_id: int, db: Session = Depends(get_db)):
+async def get_message(
+    message_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not message:
@@ -50,7 +58,11 @@ async def get_message(message_id: int, db: Session = Depends(get_db)):
         )
 
 @router.delete("/{message_id}")
-async def delete_message(message_id: int, db: Session = Depends(get_db)):
+async def delete_message(
+    message_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not db_message:
@@ -68,8 +80,12 @@ async def delete_message(message_id: int, db: Session = Depends(get_db)):
             detail=f"Failed to delete message: {str(e)}"
         )
 
-@router.patch("/{message_id}/read")
-async def mark_as_read(message_id: int, db: Session = Depends(get_db)):
+@router.patch("/{message_id}/read", response_model=Message)
+async def mark_as_read(
+    message_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_message = db.query(MessageModel).filter(MessageModel.id == message_id).first()
         if not db_message:

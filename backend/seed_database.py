@@ -1,20 +1,20 @@
 import sys
 import os
-import hashlib
+from dotenv import load_dotenv
 from passlib.context import CryptContext
 
 # Add backend directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'backend'))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base
 from models import User, Project, Skill, Service
 
-# Get absolute path to database (same as backend)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'portfolio.db')}"
-
-# Password hashing (local implementation to avoid import issues)
+# Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_password_hash(password):
@@ -26,21 +26,38 @@ def seed_database():
     
     db = SessionLocal()
     
+    admin_username = os.getenv("ADMIN_USERNAME", "muneer")
+    admin_password = os.getenv("ADMIN_PASSWORD", "muneer037")
+    admin_email = os.getenv("ADMIN_EMAIL", "muneermajeed037@gmail.com")
+    
     try:
-        # Check if admin user already exists
-        existing_admin = db.query(User).filter(User.username == "admin").first()
-        if not existing_admin:
-            # Create admin user
+        # Query any existing admin users by username or email
+        admin_users = db.query(User).filter(
+            (User.username == admin_username) | (User.username == "admin") | (User.email == admin_email)
+        ).all()
+        
+        if admin_users:
+            main_admin = admin_users[0]
+            # Delete other duplicate user rows first to avoid unique constraint collisions
+            for extra_user in admin_users[1:]:
+                db.delete(extra_user)
+            db.commit()
+            
+            # Update main admin fields
+            main_admin.username = admin_username
+            main_admin.email = admin_email
+            main_admin.hashed_password = get_password_hash(admin_password)
+            db.commit()
+            print(f"[OK] Single admin user '{admin_username}' configured cleanly")
+        else:
             admin_user = User(
-                username="admin",
-                email="muneermajeed037@gmail.com",
-                hashed_password=get_password_hash("admin123")
+                username=admin_username,
+                email=admin_email,
+                hashed_password=get_password_hash(admin_password)
             )
             db.add(admin_user)
             db.commit()
-            print("[OK] Admin user created (username: admin, password: admin123)")
-        else:
-            print("[OK] Admin user already exists")
+            print(f"[OK] Admin user created (username: {admin_username})")
         
         # Seed Projects
         projects_data = [

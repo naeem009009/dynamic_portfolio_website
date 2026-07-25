@@ -1,9 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
+import logging
 from database import get_db
-from models import ProjectModel
+from models import ProjectModel, User
 from schemas import ProjectCreate, Project
+from routers.auth import get_current_user
+from seed_database import seed_database
+
+logger = logging.getLogger("projects_router")
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
@@ -11,8 +16,14 @@ router = APIRouter(prefix="/projects", tags=["Projects"])
 async def get_projects(db: Session = Depends(get_db)):
     try:
         projects = db.query(ProjectModel).all()
+        if not projects:
+            logger.info("[DEBUG] No projects found in database. Running auto-seeding fallback...")
+            print("[DEBUG] No projects found in database. Running auto-seeding fallback...")
+            seed_database()
+            projects = db.query(ProjectModel).all()
         return projects
     except Exception as e:
+        logger.error(f"[ERROR] Failed to fetch projects: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to fetch projects: {str(e)}"
@@ -33,8 +44,12 @@ async def get_project(project_id: int, db: Session = Depends(get_db)):
             detail=f"Failed to fetch project: {str(e)}"
         )
 
-@router.post("/", response_model=Project)
-async def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=Project, status_code=status.HTTP_201_CREATED)
+async def create_project(
+    project: ProjectCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         data = project.model_dump() if hasattr(project, "model_dump") else project.dict()
         new_project = ProjectModel(**data)
@@ -50,7 +65,12 @@ async def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
         )
 
 @router.put("/{project_id}", response_model=Project)
-async def update_project(project_id: int, project: ProjectCreate, db: Session = Depends(get_db)):
+async def update_project(
+    project_id: int,
+    project: ProjectCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_project = db.query(ProjectModel).filter(ProjectModel.id == project_id).first()
         if not db_project:
@@ -73,7 +93,11 @@ async def update_project(project_id: int, project: ProjectCreate, db: Session = 
         )
 
 @router.delete("/{project_id}")
-async def delete_project(project_id: int, db: Session = Depends(get_db)):
+async def delete_project(
+    project_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     try:
         db_project = db.query(ProjectModel).filter(ProjectModel.id == project_id).first()
         if not db_project:
