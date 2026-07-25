@@ -5,8 +5,7 @@
 
 // API Configuration with Environment & Fallback Support
 const API_BASE_URL = (typeof window !== 'undefined' && window.ENV && window.ENV.API_BASE_URL)
-    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL)
-    || 'https://dynamic-portfolio-website.fastapicloud.dev'; // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
+    || (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_API_URL) // <--- PASTE YOUR DEPLOYED BACKEND URL HERE (e.g. Render / FastAPI Cloud URL)
 
 // DOM Elements
 const sidebar = document.getElementById('sidebar');
@@ -128,7 +127,7 @@ function revealOnScroll() {
 
         if (revealTop < windowHeight - revealPoint) {
             reveal.classList.add('active');
-            
+
             // Trigger skill bar animation if this is skills section
             const skillBars = reveal.querySelectorAll('.skill-progress');
             skillBars.forEach(bar => {
@@ -532,7 +531,7 @@ function typeWriterEffect() {
         "Automating enterprise workflows",
         "Transforming ITSM operations"
     ];
-    
+
     let taglineIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -540,7 +539,7 @@ function typeWriterEffect() {
 
     function type() {
         const currentTagline = taglines[taglineIndex];
-        
+
         if (isDeleting) {
             typingElement.textContent = currentTagline.substring(0, charIndex - 1);
             charIndex--;
