@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/frontend/images/:path*", "destination": "/images/:path*" },
     { "source": "/admin", "destination": "/admin/dashboard.html" },
     { "source": "/admin/", "destination": "/admin/dashboard.html" }
   ]
