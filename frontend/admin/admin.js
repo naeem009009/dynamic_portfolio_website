@@ -447,35 +447,34 @@ function setupForms() {
     });
 
     // Skill Form
-    document.getElementById('skill-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+   document.getElementById('skill-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        const id = document.getElementById('skill-id').value;
-        const data = {
-            category: document.getElementById('skill-category').value,
-            name: document.getElementById('skill-name').value,
-            level: parseInt(document.getElementById('skill-level').value, 10)
-        };
+    const id = document.getElementById('skill-id').value;
+    const data = {
+        category: document.getElementById('skill-category').value,
+        name: document.getElementById('skill-name').value,
+        level: String(document.getElementById('skill-level').value) 
+    };
 
-        let result;
-        if (id) {
-            result = await fetchAPI(`/skills/${id}`, {
-                method: 'PUT',
-                body: JSON.stringify(data)
-            });
-        } else {
-            result = await fetchAPI('/skills/', {
-                method: 'POST',
-                body: JSON.stringify(data)
-            });
-        }
+    let result;
+    if (id) {
+        result = await fetchAPI(`/skills/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data)
+        });
+    } else {
+        result = await fetchAPI('/skills/', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    }
 
-        if (result) {
-            closeSkillModal();
-            loadSkills();
-        }
-    });
-
+    if (result) {
+        closeSkillModal();
+        loadSkills();
+    }
+});
     // Service Form
     document.getElementById('service-form').addEventListener('submit', async (e) => {
         e.preventDefault();
