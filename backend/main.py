@@ -4,9 +4,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from database import engine, Base
+from database import engine, Base, check_db_connection
 from routers import auth, projects, skills, services, messages
-from seed_database import seed_database
+from init_db import init_db
 
 # Load environment variables
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,13 +14,11 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Ensure database tables exist
-    Base.metadata.create_all(bind=engine)
-    # Seed initial database data if empty
+    # Programmatically verify connection and initialize tables/seed data
     try:
-        seed_database()
+        init_db()
     except Exception as e:
-        print(f"[STARTUP WARN] Error during startup seeding: {e}")
+        print(f"[STARTUP WARN] Error during database initialization: {e}")
     yield
 
 # Initialize FastAPI app

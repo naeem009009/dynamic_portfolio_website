@@ -34,3 +34,15 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Node.js / Frontend
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Deployment
+dist/
+build/
+
+# Vercel
+.vercel/

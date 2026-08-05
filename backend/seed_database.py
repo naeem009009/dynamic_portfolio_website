@@ -160,7 +160,11 @@ def seed_database():
                 Skill.category == skill_data["category"]
             ).first()
             if not existing_skill:
-                skill = Skill(**skill_data)
+                skill = Skill(
+                    category=skill_data["category"],
+                    name=skill_data["name"],
+                    level=str(skill_data["level"])
+                )
                 db.add(skill)
                 db.commit()
 
