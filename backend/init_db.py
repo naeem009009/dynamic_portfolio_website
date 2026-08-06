@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from database import engine, Base, check_db_connection
+from database import engine, Base, verify_db_connection
 from seed_database import seed_database
 
 def init_db():
@@ -16,7 +16,7 @@ def init_db():
     print("=" * 60)
     
     # 1. Health check connection
-    connected = check_db_connection()
+    connected = verify_db_connection()
     if not connected:
         print("[WARN] Proceeding with table setup attempt despite connection warning...")
 

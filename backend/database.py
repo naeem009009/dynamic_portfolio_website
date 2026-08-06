@@ -43,8 +43,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Create Base class
 Base = declarative_base()
 
-def check_db_connection() -> bool:
-    """Programmatically verify the SQL database connection at application startup."""
+def verify_db_connection() -> bool:
+    """Programmatically verify the MySQL database connection at application startup."""
     try:
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
@@ -54,10 +54,18 @@ def check_db_connection() -> bool:
         print(f"[ERROR] Database connection failed: {e}")
         return False
 
-# Dependency to get database session
+# Backward compatibility alias
+check_db_connection = verify_db_connection
+
+# Dependency to get database session with full persistence guarantee
 def get_db():
+    """Dependency for yielding database session with automated commit and safe teardown."""
     db = SessionLocal()
     try:
         yield db
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
     finally:
-        db.close()
+        db.close()

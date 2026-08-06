@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from database import engine, Base, check_db_connection
+from database import engine, Base, verify_db_connection
 from routers import auth, projects, skills, services, messages
 from init_db import init_db
 
@@ -14,12 +14,22 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Programmatically verify connection and initialize tables/seed data
-    try:
-        init_db()
-    except Exception as e:
-        print(f"[STARTUP WARN] Error during database initialization: {e}")
+    # Programmatically verify MySQL connection, create missing tables & seed base data
+    print("[LIFESPAN] Starting FastAPI lifespan initialization...")
+    connected = verify_db_connection()
+    if connected:
+        try:
+            print("[LIFESPAN] Creating missing database tables...")
+            Base.metadata.create_all(bind=engine)
+            print("[LIFESPAN] Executing programmatic database initialization & seeding...")
+            init_db()
+        except Exception as e:
+            print(f"[LIFESPAN WARN] Error during database initialization: {e}")
+    else:
+        print("[LIFESPAN ERROR] MySQL database connection could not be verified on startup!")
     yield
+    print("[LIFESPAN] Shutting down FastAPI application.")
+
 
 # Initialize FastAPI app
 app = FastAPI(
