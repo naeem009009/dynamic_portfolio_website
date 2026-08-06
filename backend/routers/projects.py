@@ -16,11 +16,6 @@ router = APIRouter(prefix="/projects", tags=["Projects"])
 async def get_projects(db: Session = Depends(get_db)):
     try:
         projects = db.query(ProjectModel).all()
-        if not projects:
-            logger.info("[DEBUG] No projects found in database. Running auto-seeding fallback...")
-            print("[DEBUG] No projects found in database. Running auto-seeding fallback...")
-            seed_database()
-            projects = db.query(ProjectModel).all()
         return projects
     except Exception as e:
         logger.error(f"[ERROR] Failed to fetch projects: {e}")

@@ -16,11 +16,6 @@ router = APIRouter(prefix="/services", tags=["Services"])
 async def get_services(db: Session = Depends(get_db)):
     try:
         services = db.query(ServiceModel).all()
-        if not services:
-            logger.info("[DEBUG] No services found in database. Running auto-seeding fallback...")
-            print("[DEBUG] No services found in database. Running auto-seeding fallback...")
-            seed_database()
-            services = db.query(ServiceModel).all()
         return services
     except Exception as e:
         logger.error(f"[ERROR] Failed to fetch services: {e}")

@@ -16,11 +16,6 @@ router = APIRouter(prefix="/skills", tags=["Skills"])
 async def get_skills(db: Session = Depends(get_db)):
     try:
         skills = db.query(SkillModel).all()
-        if not skills:
-            logger.info("[DEBUG] No skills found in database. Running auto-seeding fallback...")
-            print("[DEBUG] No skills found in database. Running auto-seeding fallback...")
-            seed_database()
-            skills = db.query(SkillModel).all()
         return skills
     except Exception as e:
         logger.error(f"[ERROR] Failed to fetch skills: {e}")
