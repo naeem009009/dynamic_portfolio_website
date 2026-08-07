@@ -32,24 +32,15 @@ def seed_database():
     
     try:
         # ----------------------------------------------------
-        # 1. ADMIN USER SETUP
+        # 1. ADMIN USER SETUP (non-destructive)
+        #
+        # Only inserts the default admin account when the users
+        # table is completely empty.  Once an admin exists — even
+        # if the credentials were changed through the admin panel —
+        # this block is skipped entirely so user modifications are
+        # never overwritten on restart.
         # ----------------------------------------------------
-        admin_users = db.query(User).filter(
-            (User.username == admin_username) | (User.username == "admin") | (User.email == admin_email)
-        ).all()
-        
-        if admin_users:
-            main_admin = admin_users[0]
-            for extra_user in admin_users[1:]:
-                db.delete(extra_user)
-            db.commit()
-            
-            main_admin.username = admin_username
-            main_admin.email = admin_email
-            main_admin.hashed_password = get_password_hash(admin_password)
-            db.commit()
-            print(f"[OK] Single admin user '{admin_username}' configured cleanly")
-        else:
+        if db.query(User).count() == 0:
             admin_user = User(
                 username=admin_username,
                 email=admin_email,
@@ -58,23 +49,11 @@ def seed_database():
             db.add(admin_user)
             db.commit()
             print(f"[OK] Admin user created (username: {admin_username})")
-        
-        # ----------------------------------------------------
-        # 2. REMOVE UNWANTED CRYPTO SNAKE EDITIONS FROM DATABASE
-        # ----------------------------------------------------
-        unwanted_titles = [
-            "Crypto Snake Game - Neon Edition",
-            "Crypto Snake Game - Gold Edition",
-            "Crypto Snake Game - Cyber Edition"
-        ]
-        for title in unwanted_titles:
-            deleted_count = db.query(Project).filter(Project.title == title).delete()
-            if deleted_count > 0:
-                print(f"[CLEANUP] Removed unwanted project: '{title}'")
-        db.commit()
+        else:
+            print(f"[INFO] Admin user already exists. Skipping default admin seeding.")
 
         # ----------------------------------------------------
-        # 3. SEED INITIAL PROJECTS DATA (Only if projects table is empty)
+        # 2. SEED INITIAL PROJECTS DATA (Only if projects table is empty)
         # ----------------------------------------------------
         if db.query(Project).count() == 0:
             projects_data = [
@@ -123,7 +102,7 @@ def seed_database():
             print("[INFO] Projects table already contains user data. Skipping default project seeding.")
 
         # ----------------------------------------------------
-        # 4. SEED SKILLS (Only if skills table is empty)
+        # 3. SEED SKILLS (Only if skills table is empty)
         # ----------------------------------------------------
         if db.query(Skill).count() == 0:
             skills_data = [
@@ -162,7 +141,7 @@ def seed_database():
             print("[INFO] Skills table already contains user data. Skipping default skill seeding.")
 
         # ----------------------------------------------------
-        # 5. SEED SERVICES (Only if services table is empty)
+        # 4. SEED SERVICES (Only if services table is empty)
         # ----------------------------------------------------
         if db.query(Service).count() == 0:
             services_data = [

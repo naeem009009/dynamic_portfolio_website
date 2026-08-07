@@ -14,7 +14,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Programmatically verify MySQL connection, create missing tables & seed base data
+    # Verify SQLite connection, create missing tables & seed base data on startup
     print("[LIFESPAN] Starting FastAPI lifespan initialization...")
     connected = verify_db_connection()
     if connected:
@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
         except Exception as e:
             print(f"[LIFESPAN WARN] Error during database initialization: {e}")
     else:
-        print("[LIFESPAN ERROR] MySQL database connection could not be verified on startup!")
+        print("[LIFESPAN ERROR] SQLite database connection could not be verified on startup!")
     yield
     print("[LIFESPAN] Shutting down FastAPI application.")
 
