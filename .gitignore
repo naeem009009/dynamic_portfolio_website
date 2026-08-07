@@ -10,12 +10,12 @@ __pycache__/
 *$py.class
 *.so
 
-# SQLite Database Files
-*.db
-*.sqlite3
-*.sqlite
-portfolio.db
-backend/portfolio.db
+# # SQLite Database Files
+# *.db
+# *.sqlite3
+# *.sqlite
+# portfolio.db
+# backend/portfolio.db
 
 # Environment Variables & Secrets
 .env
